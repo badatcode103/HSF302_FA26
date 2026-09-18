@@ -1,0 +1,7 @@
+.git-backups/
+**/target/
+**/.idea/
+**/.vscode/
+*.iml
+*.log
+
