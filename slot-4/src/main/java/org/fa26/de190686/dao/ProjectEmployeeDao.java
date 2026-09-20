@@ -7,6 +7,7 @@ import org.fa26.de190686.pojo.Project;
 import org.fa26.de190686.util.JPAutil;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProjectEmployeeDao {
     // ☐ TODO 5.6 — Viết EmployeeDAO với method assignEmployeeToProject(Long
@@ -90,6 +91,24 @@ public class ProjectEmployeeDao {
                 tx.rollback();
             }
             throw e;
+        } finally {
+            em.close();
+        }
+    }
+
+    // ☐ TODO 5.10 — Viết JPQL tìm các Employee (chỉ lấy active = true) đang tham
+    // gia nhiều hơn 1 project cùng lúc
+    public List<Employee> findActiveEmployeeJoinMoreThanOneProject() {
+        EntityManager em = JPAutil.getEntityManager();
+        try {
+            String jpql = """
+                    SELECT e
+                    FROM Employee e
+                    WHERE e.active = true
+                    AND SIZE(e.projects) > 1
+                    """;
+            List<Employee> results = em.createQuery(jpql, Employee.class).getResultList();
+            return results;
         } finally {
             em.close();
         }
