@@ -6,13 +6,11 @@ import org.fa26.de190686.pojo.Employee;
 import org.fa26.de190686.pojo.Gender;
 import org.fa26.de190686.pojo.Project;
 import org.fa26.de190686.util.JPAutil;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@SpringBootApplication
 public class Hsf302Slot4Application {
 
     public static void main(String[] args) {

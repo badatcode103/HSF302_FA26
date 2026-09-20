@@ -7,7 +7,7 @@ import org.fa26.de190686.util.JPAutil;
 
 import java.util.Optional;
 
-public class EmployeeDao {
+public class ProjectEmployeeDao {
     public Optional<Employee> findEmployeeById(Long employeeId) {
         EntityManager entityManager = JPAutil.getEntityManager();
         return Optional.ofNullable(entityManager.find(Employee.class, employeeId));
