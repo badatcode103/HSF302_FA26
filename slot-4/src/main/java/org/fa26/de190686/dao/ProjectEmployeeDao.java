@@ -5,14 +5,7 @@ import org.fa26.de190686.pojo.Employee;
 import org.fa26.de190686.pojo.Project;
 import org.fa26.de190686.util.JPAutil;
 
-import java.util.Optional;
-
 public class ProjectEmployeeDao {
-    public Optional<Employee> findEmployeeById(Long employeeId) {
-        EntityManager entityManager = JPAutil.getEntityManager();
-        return Optional.ofNullable(entityManager.find(Employee.class, employeeId));
-    }
-
     //☐	TODO 5.6 — Viết EmployeeDAO với method assignEmployeeToProject(Long employeeId, Long projectId): find cả 2 entity trong 1 transaction rồi gọi assignToProject().
     public String assignEmployeeToProject(Long employeeId, Long projectId) {
         EntityManager entityManager = JPAutil.getEntityManager();
