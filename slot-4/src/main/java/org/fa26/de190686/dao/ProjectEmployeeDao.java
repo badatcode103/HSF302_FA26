@@ -6,7 +6,9 @@ import org.fa26.de190686.pojo.Project;
 import org.fa26.de190686.util.JPAutil;
 
 public class ProjectEmployeeDao {
-    //☐	TODO 5.6 — Viết EmployeeDAO với method assignEmployeeToProject(Long employeeId, Long projectId): find cả 2 entity trong 1 transaction rồi gọi assignToProject().
+    // ☐ TODO 5.6 — Viết EmployeeDAO với method assignEmployeeToProject(Long
+    // employeeId, Long projectId): find cả 2 entity trong 1 transaction rồi gọi
+    // assignToProject().
     public String assignEmployeeToProject(Long employeeId, Long projectId) {
         EntityManager entityManager = JPAutil.getEntityManager();
         try {
@@ -17,7 +19,9 @@ public class ProjectEmployeeDao {
             entityManager.getTransaction().commit();
             return "Assign employee to project successfully";
         } catch (Exception e) {
-            e.printStackTrace();
+            if (entityManager.getTransaction().isActive()) {
+                entityManager.getTransaction().rollback();
+            }
             return "Assign employee to project failed";
         } finally {
             entityManager.close();
