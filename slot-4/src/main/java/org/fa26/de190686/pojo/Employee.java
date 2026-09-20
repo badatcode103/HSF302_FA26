@@ -27,6 +27,7 @@ public class Employee {
     private String fullName;
     private BigDecimal salary;
     private LocalDate hireDate;
+    @Column (unique = true, nullable = false)
     private String email;
     @Enumerated(EnumType.STRING)
     private Gender gender;

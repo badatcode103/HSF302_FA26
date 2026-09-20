@@ -24,6 +24,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column (unique = true)
     private String projectCode;
     private String projectName;
     private BigDecimal budget;
