@@ -1,6 +1,7 @@
 package org.fa26.de190686.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import org.fa26.de190686.pojo.Employee;
 import org.fa26.de190686.pojo.Project;
 import org.fa26.de190686.util.JPAutil;
@@ -59,5 +60,38 @@ public class ProjectEmployeeDao {
             em.close();
         }
 
+    }
+
+    // ☐ TODO 5.9 — Viết method unassignFromProject(Project p) (gỡ khỏi dự án)
+    // và demo gỡ 1 nhân viên khỏi 1 project — xác nhận bảng employee_project mất
+    // đúng 1 dòng, không ảnh hưởng Employee/Project gốc.
+    public boolean unassignFromProject(Project p, Long employeeId) {
+        EntityManager em = JPAutil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            Employee employee = em.find(Employee.class, employeeId);
+            Project project = em.find(Project.class, p.getId());
+
+            if (employee == null || project == null) {
+                throw new IllegalArgumentException(
+                        "Employee hoặc Project không tồn tại");
+
+            }
+            boolean removed = employee.getProjects().contains(project);
+            if (removed) {
+                employee.removeProject(project);
+            }
+            tx.commit();
+            return removed;
+        } catch (RuntimeException e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 }
