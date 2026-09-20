@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class ProjectEmployeeDao {
+
     // ☐ TODO 5.6 — Viết EmployeeDAO với method assignEmployeeToProject(Long
     // employeeId, Long projectId): find cả 2 entity trong 1 transaction rồi gọi
     // assignToProject().
@@ -109,6 +110,37 @@ public class ProjectEmployeeDao {
                     """;
             List<Employee> results = em.createQuery(jpql, Employee.class).getResultList();
             return results;
+        } finally {
+            em.close();
+        }
+    }
+
+    // ☐ TODO 5.11 — Viết method deactivateEmployee(Long employeeId) (set active =
+    // false) và giải thích trong comment:
+    // nhân viên nghỉ việc có nên tự động bị gỡ khỏi tất cả project hay không, và
+    // cách xử lý phù hợp (không cascade REMOVE tự động).
+    public void deactivateEmployee(Long employeeId) {
+        EntityManager em = JPAutil.getEntityManager();
+        EntityTransaction tx = em.getTransaction();
+
+        try {
+            tx.begin();
+            Employee employee = em.find(Employee.class, employeeId);
+            if (employee != null) {
+                employee.setActive(false);
+                // Giải thích: Khi một nhân viên nghỉ việc, không nên tự động gỡ khỏi tất cả các
+                // dự án.
+                // Lý do là thông tin về việc nhân viên đã tham gia dự án có thể vẫn cần được
+                // lưu trữ cho mục đích báo cáo hoặc lịch sử.
+                // Thay vào đó, chỉ cần đánh dấu nhân viên là inactive và giữ nguyên các liên
+                // kết với dự án.
+            }
+            tx.commit();
+        } catch (RuntimeException e) {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            throw e;
         } finally {
             em.close();
         }
