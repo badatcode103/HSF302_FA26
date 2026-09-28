@@ -17,6 +17,16 @@ public class ExerciseRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // TODOs 6–24 are executed here as their service methods are implemented.
+        runTodo6();
+    }
+
+    private void runTodo6() {
+        System.out.println("===== TODO 6: JpaRepository built-in methods =====");
+        System.out.printf("%d departments, %d students%n", departmentService.count(), studentService.count());
+        System.out.println("Student id=1: " + studentService.findById(1L).orElse(null));
+        System.out.println("Student id=99: " + studentService.findById(99L)
+                .map(Object::toString)
+                .orElse("Not found"));
+        System.out.println("Department id=4 exists: " + departmentService.existsById(4L));
     }
 }
