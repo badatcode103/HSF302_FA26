@@ -30,6 +30,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo11();
         runTodo12();
         runTodo13();
+        runTodo14();
     }
 
     private void runTodo6() {
@@ -123,6 +124,23 @@ public class ExerciseRunner implements CommandLineRunner {
         studentService.searchByKeyword("gmail").forEach(System.out::println);
     }
 
-    
+    private void runTodo14() {
+    System.out.println("===== TODO 14: Department statistics =====");
+
+    departmentService.findDepartmentStats().forEach(stat -> {
+        String averageGpa = stat.averageGpa() == null
+                ? "null"
+                : String.format("%.3f", stat.averageGpa());
+
+        System.out.printf(
+                "%s - %s: %d - %s%n",
+                stat.departmentCode(),
+                stat.departmentName(),
+                stat.studentCount(),
+                averageGpa
+        );
+    });
+}
+
 
 }
