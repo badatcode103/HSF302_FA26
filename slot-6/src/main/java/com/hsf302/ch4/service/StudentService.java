@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.dto.StudentSummary;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
 import org.springframework.data.domain.Page;
@@ -57,5 +58,8 @@ public interface StudentService {
 
     // TODO 17
     List<Student> findTopNInDepartment(String deptCode, int n);
+
+    // TODO 18
+    List<StudentSummary> getActiveSummaries();
 
 }
