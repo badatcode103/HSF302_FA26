@@ -55,4 +55,7 @@ public interface StudentService {
     // TODO 15
     List<Student> findAboveAverageGpa();
 
+    // TODO 17
+    List<Student> findTopNInDepartment(String deptCode, int n);
+
 }
