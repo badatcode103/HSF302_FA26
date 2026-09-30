@@ -23,4 +23,11 @@ public interface StudentService {
 
     long countActive();
 
+    // 9
+    List<Student> searchByName(String kw);
+
+    List<Student> findByEmailDomain(String domain);
+
+    List<Student> findWithoutEmail();
+
 }

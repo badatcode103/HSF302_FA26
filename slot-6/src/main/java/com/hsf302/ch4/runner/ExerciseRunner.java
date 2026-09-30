@@ -22,6 +22,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo6();
         runTodo7();
         runTodo8();
+        runTodo9();
     }
 
     private void runTodo6() {
@@ -58,6 +59,18 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("Email binh.tt@fpt.edu.vn exists: "
                 + studentService.isEmailExisted("binh.tt@fpt.edu.vn"));
         System.out.println("Active students: " + studentService.countActive());
+    }
+
+    private void runTodo9() {
+        System.out.println("===== TODO 9: String and null derived queries =====");
+        System.out.println("Students whose name contains 'nguyen':");
+        studentService.searchByName("nguyen").forEach(System.out::println);
+
+        System.out.println("Students with @gmail.com email:");
+        studentService.findByEmailDomain("gmail.com").forEach(System.out::println);
+
+        System.out.println("Students without email:");
+        studentService.findWithoutEmail().forEach(System.out::println);
     }
 
 }
