@@ -65,4 +65,7 @@ public interface StudentService {
     // TODO 19
     Page<Student> findActiveByDepartment(String deptCode, int pageIndex, int size);
 
+    //Todo 20
+    Student updateGpa(String code, double newGpa);
+
 }

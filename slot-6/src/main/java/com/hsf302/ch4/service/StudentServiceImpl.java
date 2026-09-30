@@ -175,4 +175,13 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findActiveByDepartment(deptCode, PageRequest.of(pageIndex, size));
     }
 
+    //Todo 20
+    @Override
+    @Transactional
+    public Student updateGpa(String code, double newGpa) {
+        Student student = studentRepository.findByStudentCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Student with code " + code + " not found"));
+        student.setGpa(newGpa);
+        return studentRepository.save(student); 
+    }
 }

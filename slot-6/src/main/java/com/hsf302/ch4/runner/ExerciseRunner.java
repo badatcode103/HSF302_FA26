@@ -38,6 +38,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo17();
         runTodo18();
         runTodo19();
+        runTodo20();
     }
 
     private void runTodo6() {
@@ -124,8 +125,8 @@ public class ExerciseRunner implements CommandLineRunner {
 
     private void runTodo13() {
         System.out.println("===== TODO 13: Custom query with @Query and keyword search =====");
-        System.out.println("Students with keyword 'nguyen':");
-        studentService.searchByKeyword("nguyen").forEach(System.out::println);
+        System.out.println("Students with keyword 'hoa':");
+        studentService.searchByKeyword("hoa").forEach(System.out::println);
 
         System.out.println("Students with keyword 'gmail':");
         studentService.searchByKeyword("gmail").forEach(System.out::println);
@@ -194,6 +195,15 @@ public class ExerciseRunner implements CommandLineRunner {
         page.getContent().forEach(System.out::println);
         System.out.printf("totalElements = %d, totalPages = %d%n",
                 page.getTotalElements(), page.getTotalPages());
+    }
+
+    private void runTodo20() {
+        System.out.println("===== TODO 20: Update student GPA =====");
+        String studentCode = "SE001";
+        double newGpa = 3.9;
+
+        Student updatedStudent = studentService.updateGpa(studentCode, newGpa);
+        System.out.printf("Updated GPA for student %s: %.2f%n", updatedStudent.getStudentCode(), updatedStudent.getGpa());
     }
 
 
