@@ -65,5 +65,12 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
             """)
     List<Student> searchStudents(@Param("kw") String keyword);
 
+    // TODO 15
+    @Query("""
+            SELECT s FROM Student s
+            WHERE s.gpa > (SELECT AVG(student.gpa) FROM Student student)
+            ORDER BY s.gpa DESC
+            """)
+    List<Student> findAboveAverageGpa();
 
 }

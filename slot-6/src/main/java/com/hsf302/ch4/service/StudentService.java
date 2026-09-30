@@ -52,4 +52,7 @@ public interface StudentService {
     // TODO 13
     List<Student> searchByKeyword(String kw);
 
+    // TODO 15
+    List<Student> findAboveAverageGpa();
+
 }

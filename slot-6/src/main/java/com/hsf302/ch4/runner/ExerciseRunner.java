@@ -31,6 +31,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo12();
         runTodo13();
         runTodo14();
+        runTodo15();
     }
 
     private void runTodo6() {
@@ -141,6 +142,11 @@ public class ExerciseRunner implements CommandLineRunner {
         );
     });
 }
+
+    private void runTodo15() {
+        System.out.println("===== TODO 15: Students above average GPA =====");
+        studentService.findAboveAverageGpa().forEach(System.out::println);
+    }
 
 
 }
