@@ -6,6 +6,7 @@ import com.hsf302.ch4.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +37,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<DepartmentStatDTO> findDepartmentStats() {
         return departmentRepository.findDepartmentStats();
+    }
+
+    // TODO 16
+    @Override
+    public Optional<Department> findByCode(String code) {
+        return departmentRepository.findByCode(code);
+    }
+
+    @Override
+    public Department getWithStudents(String code) {
+        return departmentRepository.findByCodeWithStudents(code)
+                .orElseThrow(() -> new IllegalArgumentException("Department not found: " + code));
     }
 }
     

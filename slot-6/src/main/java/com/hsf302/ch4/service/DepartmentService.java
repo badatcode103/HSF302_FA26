@@ -4,6 +4,7 @@ import com.hsf302.ch4.dto.DepartmentStatDTO;
 import com.hsf302.ch4.pojo.Department;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DepartmentService {
 
@@ -16,5 +17,10 @@ public interface DepartmentService {
 
     //todo 14
     List<DepartmentStatDTO> findDepartmentStats();
+
+    // TODO 16
+    Optional<Department> findByCode(String code);
+
+    Department getWithStudents(String code);
 
 }
