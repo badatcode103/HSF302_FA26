@@ -23,4 +23,6 @@ public interface DepartmentService {
 
     Department getWithStudents(String code);
 
+    public int transferStudentsAndDeleteDepartment(String oldCode, String newCode) ;
+
 }

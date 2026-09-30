@@ -3,6 +3,8 @@ package com.hsf302.ch4.service;
 import com.hsf302.ch4.dto.DepartmentStatDTO;
 import com.hsf302.ch4.pojo.Department;
 import com.hsf302.ch4.repository.DepartmentRepository;
+import com.hsf302.ch4.repository.StudentRepository;
+
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private final DepartmentRepository departmentRepository;
+
+    private final StudentRepository studentRepository;
 
     @Override
     public long count() {
@@ -49,6 +53,19 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department getWithStudents(String code) {
         return departmentRepository.findByCodeWithStudents(code)
                 .orElseThrow(() -> new IllegalArgumentException("Department not found: " + code));
+    }
+
+    @Override
+    @Transactional
+    public int transferStudentsAndDeleteDepartment(String oldCode, String newCode) {
+        Department oldDept = departmentRepository.findByCode(oldCode)
+                .orElseThrow(() -> new IllegalArgumentException("Old department not found: " + oldCode));
+        Department newDept = departmentRepository.findByCode(newCode)
+                .orElseThrow(() -> new IllegalArgumentException("New department not found: " + newCode));
+
+        int transferredCount = studentRepository.transferStudentsToNewDepartment(oldDept, newDept);
+        departmentRepository.delete(oldDept);
+        return transferredCount;
     }
 }
     
