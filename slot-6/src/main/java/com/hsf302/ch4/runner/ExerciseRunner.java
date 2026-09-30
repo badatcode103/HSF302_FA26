@@ -28,6 +28,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo9();
         runTodo10();
         runTodo11();
+        runTodo12();
     }
 
     private void runTodo6() {
@@ -105,5 +106,13 @@ public class ExerciseRunner implements CommandLineRunner {
                 .forEach(department -> System.out.println(
                         department.getCode() + " - " + department.getName()));
     }
+
+     private void runTodo12() {
+        System.out.println("===== TODO 12: Custom query with @Query =====");
+        System.out.println("Good students in department SE:");
+        studentService.findGoodStudents("SE", 3.0).forEach(System.out::println);
+    }
+
+    
 
 }
