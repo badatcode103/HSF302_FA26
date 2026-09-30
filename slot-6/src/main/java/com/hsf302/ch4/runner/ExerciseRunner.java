@@ -27,6 +27,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo8();
         runTodo9();
         runTodo10();
+        runTodo11();
     }
 
     private void runTodo6() {
@@ -87,6 +88,22 @@ public class ExerciseRunner implements CommandLineRunner {
 
         System.out.println("Students born after 2005-01-01:");
         studentService.findBornAfter(LocalDate.of(2005, 1, 1)).forEach(System.out::println);
+    }
+
+    private void runTodo11() {
+        System.out.println("===== TODO 11: Nested, top and empty derived queries =====");
+        System.out.println("Students in department SE:");
+        studentService.findByDepartment("SE").forEach(System.out::println);
+
+        System.out.println("Students in department AI: " + studentService.countByDepartment("AI"));
+
+        System.out.println("Top 3 students by GPA:");
+        studentService.findTop3ByGpa().forEach(System.out::println);
+
+        System.out.println("Departments without students:");
+        departmentService.findDepartmentsWithoutStudents()
+                .forEach(department -> System.out.println(
+                        department.getCode() + " - " + department.getName()));
     }
 
 }
