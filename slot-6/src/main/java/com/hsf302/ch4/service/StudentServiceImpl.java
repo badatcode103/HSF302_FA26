@@ -187,4 +187,14 @@ public class StudentServiceImpl implements StudentService {
         student.setGpa(newGpa);
         return studentRepository.save(student);
     }
+
+    //Todo 21
+    @Override
+    @Transactional
+    public int deactivateStudentsBelowGpa(double threshold) {
+        if (!Double.isFinite(threshold) || threshold < 0 || threshold > 4) {
+            throw new IllegalArgumentException("Threshold must be between 0 and 4");
+        }
+        return studentRepository.deactivateStudentsBelowGpa(threshold);
+    }
 }
