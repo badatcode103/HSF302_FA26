@@ -1,5 +1,6 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.service.DepartmentService;
 import com.hsf302.ch4.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class ExerciseRunner implements CommandLineRunner {
     public void run(String... args) {
         runTodo6();
         runTodo7();
+        runTodo8();
     }
 
     private void runTodo6() {
@@ -37,11 +39,25 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("Students ordered by GPA descending:");
         studentService.findAllOrderByGpaDesc().forEach(System.out::println);
 
-        Page<com.hsf302.ch4.pojo.Student> page = studentService.findPage(1, 3, "fullName");
+        Page<Student> page = studentService.findPage(1, 3, "fullName");
         System.out.println("Page 2 ordered by full name:");
         page.getContent().forEach(System.out::println);
         System.out.println("totalElements = " + page.getTotalElements());
         System.out.println("totalPages = " + page.getTotalPages());
         System.out.println("hasNext = " + page.hasNext());
     }
+
+    private void runTodo8() {
+        System.out.println("===== TODO 8: Basic derived queries =====");
+        System.out.println("Student AI002: " + studentService.findByStudentCode("AI002")
+                .map(Object::toString)
+                .orElse("Not found"));
+        System.out.println("Student XX999: " + studentService.findByStudentCode("XX999")
+                .map(Object::toString)
+                .orElse("Not found"));
+        System.out.println("Email binh.tt@fpt.edu.vn exists: "
+                + studentService.isEmailExisted("binh.tt@fpt.edu.vn"));
+        System.out.println("Active students: " + studentService.countActive());
+    }
+
 }
