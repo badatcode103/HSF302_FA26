@@ -29,6 +29,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo10();
         runTodo11();
         runTodo12();
+        runTodo13();
     }
 
     private void runTodo6() {
@@ -111,6 +112,15 @@ public class ExerciseRunner implements CommandLineRunner {
         System.out.println("===== TODO 12: Custom query with @Query =====");
         System.out.println("Good students in department SE:");
         studentService.findGoodStudents("SE", 3.0).forEach(System.out::println);
+    }
+
+    private void runTodo13() {
+        System.out.println("===== TODO 13: Custom query with @Query and keyword search =====");
+        System.out.println("Students with keyword 'nguyen':");
+        studentService.searchByKeyword("nguyen").forEach(System.out::println);
+
+        System.out.println("Students with keyword 'gmail':");
+        studentService.searchByKeyword("gmail").forEach(System.out::println);
     }
 
     

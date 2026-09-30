@@ -46,7 +46,10 @@ public interface StudentService {
 
     List<Student> findTop3ByGpa();
 
-    //todo 12
+    // todo 12
     List<Student> findGoodStudents(String deptCode, double minGpa);
+
+    // TODO 13
+    List<Student> searchByKeyword(String kw);
 
 }
