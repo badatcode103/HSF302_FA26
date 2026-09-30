@@ -163,4 +163,16 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findActiveSummaries();
     }
 
+    // TODO 19
+    @Override
+    public Page<Student> findActiveByDepartment(String deptCode, int pageIndex, int size) {
+        if (pageIndex < 0) {
+            throw new IllegalArgumentException("Page index must not be negative");
+        }
+        if (size <= 0) {
+            throw new IllegalArgumentException("Page size must be greater than zero");
+        }
+        return studentRepository.findActiveByDepartment(deptCode, PageRequest.of(pageIndex, size));
+    }
+
 }

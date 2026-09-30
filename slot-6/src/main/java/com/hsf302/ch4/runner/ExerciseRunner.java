@@ -37,6 +37,7 @@ public class ExerciseRunner implements CommandLineRunner {
         runTodo16();
         runTodo17();
         runTodo18();
+        runTodo19();
     }
 
     private void runTodo6() {
@@ -180,6 +181,19 @@ public class ExerciseRunner implements CommandLineRunner {
                 summary.getFullName(),
                 summary.getGpa(),
                 summary.getDepartmentName()));
+    }
+
+    private void runTodo19() {
+        System.out.println("===== TODO 19: Active students by department pagination =====");
+        printPage("Page 0", studentService.findActiveByDepartment("SE", 0, 2));
+        printPage("Page 1", studentService.findActiveByDepartment("SE", 1, 2));
+    }
+
+    private void printPage(String label, Page<Student> page) {
+        System.out.println(label + ":");
+        page.getContent().forEach(System.out::println);
+        System.out.printf("totalElements = %d, totalPages = %d%n",
+                page.getTotalElements(), page.getTotalPages());
     }
 
 

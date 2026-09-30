@@ -3,6 +3,8 @@ package com.hsf302.ch4.repository;
 import com.hsf302.ch4.dto.StudentSummary;
 import com.hsf302.ch4.pojo.Gender;
 import com.hsf302.ch4.pojo.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -95,5 +97,13 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
             ORDER BY s.fullName ASC
             """)
     List<StudentSummary> findActiveSummaries();
+
+    // TODO 19
+    @Query("""
+            SELECT s FROM Student s
+            WHERE s.active = true AND s.department.code = :deptCode
+            ORDER BY s.gpa DESC
+            """)
+    Page<Student> findActiveByDepartment(@Param("deptCode") String deptCode, Pageable pageable);
 
 }
