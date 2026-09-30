@@ -200,10 +200,10 @@ public class ExerciseRunner implements CommandLineRunner {
     private void runTodo20() {
         System.out.println("===== TODO 20: Update student GPA =====");
         String studentCode = "SE001";
-        double newGpa = 3.9;
+        double newGpa = 3.4;
 
         Student updatedStudent = studentService.updateGpa(studentCode, newGpa);
-        System.out.printf("Updated GPA for student %s: %.2f%n", updatedStudent.getStudentCode(), updatedStudent.getGpa());
+        System.out.println("Updated student: " + updatedStudent);
     }
 
 

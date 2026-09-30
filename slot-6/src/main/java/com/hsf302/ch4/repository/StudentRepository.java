@@ -106,5 +106,4 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
             """)
     Page<Student> findActiveByDepartment(@Param("deptCode") String deptCode, Pageable pageable);
 
-   
 }

@@ -179,9 +179,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     @Transactional
     public Student updateGpa(String code, double newGpa) {
+        if (!Double.isFinite(newGpa) || newGpa < 0 || newGpa > 4) {
+            throw new IllegalArgumentException("GPA must be between 0 and 4");
+        }
         Student student = studentRepository.findByStudentCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Student with code " + code + " not found"));
         student.setGpa(newGpa);
-        return studentRepository.save(student); 
+        return studentRepository.save(student);
     }
 }
