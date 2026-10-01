@@ -125,4 +125,7 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
                         WHERE s.department = :oldDepartment
                         """)
         int transferStudentsToNewDepartment(@Param("oldDepartment") Department oldDepartment, @Param("newDepartment") Department newDepartment);
+
+        // TODO 23
+        long deleteByActiveFalse();
 }

@@ -197,4 +197,11 @@ public class StudentServiceImpl implements StudentService {
         }
         return studentRepository.deactivateStudentsBelowGpa(threshold);
     }
+
+    // TODO 23
+    @Override
+    @Transactional
+    public long deleteInactiveStudents() {
+        return studentRepository.deleteByActiveFalse();
+    }
 }
