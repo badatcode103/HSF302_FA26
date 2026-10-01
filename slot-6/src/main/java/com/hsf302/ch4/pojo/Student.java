@@ -91,12 +91,12 @@ public class Student {
     )
     private Set<Course> courses = new HashSet<>();
 
-    public void enrollInCourse(Course course) {
+    public void enroll(Course course) {
         courses.add(course);
         course.getStudents().add(this);
     }
 
-    public void unenrollFromCourse(Course course) {
+    public void unenroll(Course course) {
         courses.remove(course);
         course.getStudents().remove(this);
     }
