@@ -138,4 +138,13 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
         List<Student> findByCoursesIsEmptyOrderByFullNameAsc();
 
         boolean existsByStudentCodeAndCourses_Code(String studentCode, String courseCode);
+
+        @Query("""
+                        SELECT s
+                        FROM Student s JOIN s.courses c
+                        WHERE c.code = :courseCode AND s.gpa >= :minGpa
+                        ORDER BY s.gpa DESC
+                        """)
+        List<Student> findGoodStudentsInCourse(@Param("courseCode") String courseCode,
+                                               @Param("minGpa") double minGpa);
 }

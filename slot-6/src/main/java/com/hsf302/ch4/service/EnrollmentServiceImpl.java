@@ -70,6 +70,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return studentRepository.existsByStudentCodeAndCourses_Code(student, course.getCode());
     }
 
+    @Override
+    public List<Student> findGoodStudentsInCourse(String courseCode, double minGpa) {
+        if (!Double.isFinite(minGpa) || minGpa < 0 || minGpa > 4) {
+            throw new IllegalArgumentException("Minimum GPA must be between 0 and 4");
+        }
+        Course course = requireCourse(courseCode);
+        return studentRepository.findGoodStudentsInCourse(course.getCode(), minGpa);
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)

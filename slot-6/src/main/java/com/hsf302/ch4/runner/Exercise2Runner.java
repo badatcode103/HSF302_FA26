@@ -27,6 +27,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo9();
         runTodo10();
         runTodo11();
+        runTodo12();
     }
 
     private void runTodo6() {
@@ -93,6 +94,12 @@ public class Exercise2Runner implements CommandLineRunner {
                 + enrollmentService.isEnrolled("SE001", "AIL303"));
         System.out.println("SE002 enrolled in AIL303: "
                 + enrollmentService.isEnrolled("SE002", "AIL303"));
+    }
+
+    private void runTodo12() {
+        heading(12, "Find good students in a course");
+        enrollmentService.findGoodStudentsInCourse("HSF302", 3.5)
+                .forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {
