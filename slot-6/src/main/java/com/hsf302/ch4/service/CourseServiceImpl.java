@@ -69,6 +69,11 @@ public class CourseServiceImpl implements CourseService {
                 : courseRepository.findByStudents_Department_CodeOrderByCodeAsc(code);
     }
 
+    @Override
+    public List<Course> findCoursesWithoutStudents() {
+        return courseRepository.findByStudentsIsEmptyOrderByCodeAsc();
+    }
+
     private String requireText(String value, String field) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(field + " must not be blank");
