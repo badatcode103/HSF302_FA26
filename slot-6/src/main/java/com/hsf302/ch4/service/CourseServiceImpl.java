@@ -1,6 +1,7 @@
 package com.hsf302.ch4.service;
 
 import com.hsf302.ch4.dto.CourseStatDTO;
+import com.hsf302.ch4.dto.CourseEnrollmentCount;
 import com.hsf302.ch4.pojo.Course;
 import com.hsf302.ch4.repository.CourseRepository;
 import com.hsf302.ch4.repository.StudentRepository;
@@ -90,6 +91,14 @@ public class CourseServiceImpl implements CourseService {
         String courseCode = requireText(code, "Course code");
         return courseRepository.findWithStudentsByCode(courseCode)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseCode));
+    }
+
+    @Override
+    public List<CourseEnrollmentCount> findTopEnrolled(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("Number of courses must be greater than zero");
+        }
+        return courseRepository.findTopEnrolled(n);
     }
 
     private String requireText(String value, String field) {
