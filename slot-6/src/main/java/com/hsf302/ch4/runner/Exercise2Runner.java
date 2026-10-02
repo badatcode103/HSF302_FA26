@@ -1,5 +1,7 @@
 package com.hsf302.ch4.runner;
 
+import com.hsf302.ch4.pojo.Course;
+import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.service.CourseService;
 import com.hsf302.ch4.service.EnrollmentService;
 import com.hsf302.ch4.service.StudentService;
@@ -9,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.Locale;
 
 @Component
@@ -33,6 +36,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo13();
         runTodo14();
         runTodo15();
+        runTodo16();
     }
 
     private void runTodo6() {
@@ -133,6 +137,29 @@ public class Exercise2Runner implements CommandLineRunner {
         courseService.findFullCourses().forEach(System.out::println);
         System.out.println("Students enrolled in more than 2 courses:");
         enrollmentService.findStudentsWithMoreThan(2).forEach(System.out::println);
+    }
+
+    private void runTodo16() {
+        heading(16, "Load lazy collections explicitly");
+        try {
+            Student detached = studentService.findByStudentCode("SE001").orElseThrow();
+            System.out.println("Detached course count: " + detached.getCourses().size());
+        } catch (RuntimeException exception) {
+            System.out.println("Expected lazy-loading failure: "
+                    + exception.getClass().getSimpleName() + " - " + exception.getMessage());
+        }
+
+        Student student = enrollmentService.getStudentWithCourses("SE001");
+        System.out.println("SE001 courses loaded with JOIN FETCH:");
+        student.getCourses().stream()
+                .sorted(Comparator.comparing(Course::getCode))
+                .forEach(System.out::println);
+
+        Course course = courseService.getWithStudents("SWP391");
+        System.out.println("SWP391 students loaded with EntityGraph:");
+        course.getStudents().stream()
+                .sorted(Comparator.comparing(Student::getFullName))
+                .forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {

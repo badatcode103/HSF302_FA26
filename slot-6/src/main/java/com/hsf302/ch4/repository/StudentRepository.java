@@ -165,4 +165,11 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
                         ORDER BY s.fullName
                         """)
         List<Student> findStudentsWithMoreThan(@Param("numberOfCourses") int numberOfCourses);
+
+        @Query("""
+                        SELECT DISTINCT s FROM Student s
+                        LEFT JOIN FETCH s.courses
+                        WHERE s.studentCode = :studentCode
+                        """)
+        Optional<Student> findWithCoursesByStudentCode(@Param("studentCode") String studentCode);
 }

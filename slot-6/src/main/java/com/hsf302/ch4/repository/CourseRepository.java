@@ -3,6 +3,8 @@ package com.hsf302.ch4.repository;
 import com.hsf302.ch4.dto.CourseStatDTO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.repository.query.Param;
 
 import com.hsf302.ch4.pojo.Course;
 
@@ -39,4 +41,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
             ORDER BY c.code
             """)
     List<Course> findFullCourses();
+
+    @EntityGraph(attributePaths = "students")
+    @Query("SELECT c FROM Course c WHERE c.code = :code")
+    Optional<Course> findWithStudentsByCode(@Param("code") String code);
 }

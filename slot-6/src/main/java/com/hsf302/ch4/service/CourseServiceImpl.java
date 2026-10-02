@@ -85,6 +85,13 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findFullCourses();
     }
 
+    @Override
+    public Course getWithStudents(String code) {
+        String courseCode = requireText(code, "Course code");
+        return courseRepository.findWithStudentsByCode(courseCode)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseCode));
+    }
+
     private String requireText(String value, String field) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(field + " must not be blank");
