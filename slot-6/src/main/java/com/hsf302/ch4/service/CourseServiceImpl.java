@@ -49,6 +49,26 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.countBySemester(requireText(semester, "Semester"));
     }
 
+    @Override
+    public List<Course> findCoursesOfStudent(String studentCode) {
+        String code = requireText(studentCode, "Student code");
+        if (!studentRepository.findByStudentCode(code).isPresent()) {
+            throw new IllegalArgumentException("Student not found: " + code);
+        }
+        return courseRepository.findByStudents_StudentCodeOrderByCodeAsc(code);
+    }
+
+    @Override
+    public List<Course> findCoursesOfDepartment(String deptCode, boolean distinct) {
+        String code = requireText(deptCode, "Department code");
+        if (studentRepository.countByDepartment_Code(code) == 0) {
+            throw new IllegalArgumentException("Department not found or has no students: " + code);
+        }
+        return distinct
+                ? courseRepository.findDistinctByStudents_Department_CodeOrderByCodeAsc(code)
+                : courseRepository.findByStudents_Department_CodeOrderByCodeAsc(code);
+    }
+
     private String requireText(String value, String field) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(field + " must not be blank");

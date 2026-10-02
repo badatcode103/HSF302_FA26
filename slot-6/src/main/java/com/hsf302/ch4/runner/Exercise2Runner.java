@@ -25,6 +25,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo7();
         runTodo8();
         runTodo9();
+        runTodo10();
     }
 
     private void runTodo6() {
@@ -67,6 +68,18 @@ public class Exercise2Runner implements CommandLineRunner {
                 + enrollmentService.countStudentsInCourse("HSF302"));
         System.out.println("Active students in PRJ301:");
         enrollmentService.findActiveStudentsInCourse("PRJ301").forEach(System.out::println);
+    }
+
+    private void runTodo10() {
+        heading(10, "Find courses by student and department");
+        System.out.println("Courses of SE002:");
+        courseService.findCoursesOfStudent("SE002").forEach(System.out::println);
+        var coursesWithDuplicates = courseService.findCoursesOfDepartment("AI", false);
+        var distinctCourses = courseService.findCoursesOfDepartment("AI", true);
+        System.out.println("AI course rows without distinct: " + coursesWithDuplicates.size());
+        coursesWithDuplicates.forEach(System.out::println);
+        System.out.println("AI course rows with distinct: " + distinctCourses.size());
+        distinctCourses.forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {
