@@ -157,6 +157,34 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         student.unenroll(course);
     }
 
+    @Override
+    @Transactional
+    public void switchCourse(String studentCode, String fromCode, String toCode) {
+        Student student = requireStudent(studentCode);
+        Course fromCourse = requireCourse(fromCode);
+        Course toCourse = requireCourse(toCode);
+        if (fromCourse.equals(toCourse)) {
+            throw new IllegalArgumentException("Source and target courses must be different");
+        }
+        if (!student.getCourses().contains(fromCourse)) {
+            throw new IllegalStateException(
+                    "Student is not enrolled in " + fromCourse.getCode());
+        }
+
+        student.unenroll(fromCourse);
+        if (!student.isActive()) {
+            throw new IllegalStateException("Student is inactive: " + student.getStudentCode());
+        }
+        if (student.getCourses().contains(toCourse)) {
+            throw new IllegalStateException(
+                    "Student is already enrolled in " + toCourse.getCode());
+        }
+        if (toCourse.getStudents().size() >= toCourse.getCapacity()) {
+            throw new IllegalStateException("Course is full: " + toCourse.getCode());
+        }
+        student.enroll(toCourse);
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)

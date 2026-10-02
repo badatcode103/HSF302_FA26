@@ -42,6 +42,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo19();
         runTodo20();
         runTodo21();
+        runTodo22();
     }
 
     private void runTodo6() {
@@ -224,6 +225,21 @@ public class Exercise2Runner implements CommandLineRunner {
         System.out.println("AI002 still exists: "
                 + studentService.findByStudentCode("AI002").isPresent());
         System.out.println("Total courses: " + courseService.count());
+    }
+
+    private void runTodo22() {
+        heading(22, "Switch courses atomically");
+        attempt("SE001 SWP391 -> MKT101",
+                () -> enrollmentService.switchCourse("SE001", "SWP391", "MKT101"));
+        printCoursesOfStudent("SE001");
+        attempt("SE001 PRJ301 -> AIL303",
+                () -> enrollmentService.switchCourse("SE001", "PRJ301", "AIL303"));
+        printCoursesOfStudent("SE001");
+    }
+
+    private void printCoursesOfStudent(String studentCode) {
+        System.out.println("Courses of " + studentCode + ":");
+        enrollmentService.getCoursesOfStudent(studentCode).forEach(System.out::println);
     }
 
     private void attempt(String action, Runnable operation) {
