@@ -128,10 +128,33 @@ public class EnrollmentServiceImpl implements EnrollmentService {
                 course.getCode(), PageRequest.of(pageIndex, size));
     }
 
+    @Override
+    @Transactional
+    public void enroll(String studentCode, String courseCode) {
+        Student student = requireStudent(studentCode);
+        Course course = requireCourse(courseCode);
+        if (!student.isActive()) {
+            throw new IllegalStateException("Student is inactive: " + student.getStudentCode());
+        }
+        if (student.getCourses().contains(course)) {
+            throw new IllegalStateException("Student is already enrolled in " + course.getCode());
+        }
+        if (course.getStudents().size() >= course.getCapacity()) {
+            throw new IllegalStateException("Course is full: " + course.getCode());
+        }
+        student.enroll(course);
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Course not found: " + code));
+    }
+
+    private Student requireStudent(String studentCode) {
+        String code = requireText(studentCode, "Student code");
+        return studentRepository.findByStudentCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Student not found: " + code));
     }
 
     private String requireText(String value, String field) {

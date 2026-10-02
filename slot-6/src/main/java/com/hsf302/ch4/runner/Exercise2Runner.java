@@ -40,6 +40,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo17();
         runTodo18();
         runTodo19();
+        runTodo20();
     }
 
     private void runTodo6() {
@@ -195,6 +196,28 @@ public class Exercise2Runner implements CommandLineRunner {
                 page = enrollmentService.findStudentsInCoursePage("HSF302", pageIndex, 2);
             }
         } while (pageIndex < page.getTotalPages());
+    }
+
+    private void runTodo20() {
+        heading(20, "Enroll a student with business rules");
+        attempt("IA003 -> MKT101", () -> enrollmentService.enroll("IA003", "MKT101"));
+        attempt("SE001 -> PRJ301", () -> enrollmentService.enroll("SE001", "PRJ301"));
+        attempt("SE004 -> AIL303", () -> enrollmentService.enroll("SE004", "AIL303"));
+        attempt("SE003 -> HSF302", () -> enrollmentService.enroll("SE003", "HSF302"));
+        attempt("XX999 -> HSF302", () -> enrollmentService.enroll("XX999", "HSF302"));
+        System.out.println("Courses of IA003:");
+        enrollmentService.getCoursesOfStudent("IA003").forEach(System.out::println);
+        System.out.println("Students in MKT101: "
+                + enrollmentService.countStudentsInCourse("MKT101"));
+    }
+
+    private void attempt(String action, Runnable operation) {
+        try {
+            operation.run();
+            System.out.println(action + ": success");
+        } catch (RuntimeException exception) {
+            System.out.println(action + ": failed - " + exception.getMessage());
+        }
     }
 
     private void heading(int todo, String title) {
