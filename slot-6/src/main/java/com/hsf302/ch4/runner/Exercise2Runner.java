@@ -44,6 +44,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo21();
         runTodo22();
         runTodo23();
+        runTodo24();
     }
 
     private void runTodo6() {
@@ -252,6 +253,22 @@ public class Exercise2Runner implements CommandLineRunner {
         System.out.println("Remaining courses:");
         courseService.findAllOrderByCode().forEach(System.out::println);
         printCoursesOfStudent("IA002");
+    }
+
+    private void runTodo24() {
+        heading(24, "Remove enrollments of inactive students");
+        int removed = enrollmentService.removeEnrollmentsOfInactiveStudents();
+        System.out.println("Enrollment rows removed: " + removed);
+        System.out.println("Updated course statistics:");
+        courseService.getStatistics().forEach(stat -> {
+            String average = stat.averageGpa() == null
+                    ? "null"
+                    : String.format(Locale.US, "%.3f", stat.averageGpa());
+            System.out.printf("%s | %d/%d | remaining %d | avg GPA %s%n",
+                    stat.code(), stat.enrolled(), stat.capacity(), stat.remaining(), average);
+        });
+        System.out.println("Students without courses:");
+        enrollmentService.findStudentsWithoutCourses().forEach(System.out::println);
     }
 
     private void printCoursesOfStudent(String studentCode) {

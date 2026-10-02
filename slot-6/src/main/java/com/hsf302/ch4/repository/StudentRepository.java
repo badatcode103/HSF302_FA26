@@ -197,4 +197,13 @@ public interface StudentRepository extends JpaRepository<Student, Long>, JpaSpec
                         """)
         Page<Student> findStudentsInCoursePage(@Param("courseCode") String courseCode,
                                                Pageable pageable);
+
+        @Modifying(clearAutomatically = true)
+        @Query(value = """
+                        DELETE sc
+                        FROM student_courses sc
+                        INNER JOIN students s ON s.id = sc.student_id
+                        WHERE s.active = 0
+                        """, nativeQuery = true)
+        int removeEnrollmentsOfInactiveStudents();
 }

@@ -185,6 +185,12 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         student.enroll(toCourse);
     }
 
+    @Override
+    @Transactional
+    public int removeEnrollmentsOfInactiveStudents() {
+        return studentRepository.removeEnrollmentsOfInactiveStudents();
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)
