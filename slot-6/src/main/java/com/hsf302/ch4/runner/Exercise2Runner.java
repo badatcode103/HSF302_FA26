@@ -38,6 +38,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo15();
         runTodo16();
         runTodo17();
+        runTodo18();
     }
 
     private void runTodo6() {
@@ -168,6 +169,15 @@ public class Exercise2Runner implements CommandLineRunner {
         courseService.findTopEnrolled(3).forEach(course ->
                 System.out.printf("%s | %s | %d students%n",
                         course.getCode(), course.getName(), course.getEnrolled()));
+    }
+
+    private void runTodo18() {
+        heading(18, "Enrollment view by department");
+        enrollmentService.getEnrollmentsOfDepartment("AI").forEach(enrollment ->
+                System.out.printf("%s | %s | %s | %s | %d credits%n",
+                        enrollment.getStudentCode(), enrollment.getFullName(),
+                        enrollment.getCourseCode(), enrollment.getCourseName(),
+                        enrollment.getCredits()));
     }
 
     private void heading(int todo, String title) {

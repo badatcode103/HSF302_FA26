@@ -1,6 +1,7 @@
 package com.hsf302.ch4.service;
 
 import com.hsf302.ch4.dto.StudentCreditDTO;
+import com.hsf302.ch4.dto.EnrollmentView;
 import com.hsf302.ch4.pojo.Course;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.repository.CourseRepository;
@@ -101,6 +102,15 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         String code = requireText(studentCode, "Student code");
         return studentRepository.findWithCoursesByStudentCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Student not found: " + code));
+    }
+
+    @Override
+    public List<EnrollmentView> getEnrollmentsOfDepartment(String deptCode) {
+        String code = requireText(deptCode, "Department code");
+        if (studentRepository.countByDepartment_Code(code) == 0) {
+            throw new IllegalArgumentException("Department not found or has no students: " + code);
+        }
+        return studentRepository.getEnrollmentsOfDepartment(code);
     }
 
     private Course requireCourse(String courseCode) {
