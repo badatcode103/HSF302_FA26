@@ -33,4 +33,26 @@ public class CourseServiceImpl implements CourseService {
     public Optional<Course> findById(Long id) {
         return courseRepository.findById(id);
     }
+
+    @Override
+    public Optional<Course> findByCode(String code) {
+        return courseRepository.findByCode(requireText(code, "Course code"));
+    }
+
+    @Override
+    public List<Course> findBySemester(String semester) {
+        return courseRepository.findBySemesterOrderByCodeAsc(requireText(semester, "Semester"));
+    }
+
+    @Override
+    public long countBySemester(String semester) {
+        return courseRepository.countBySemester(requireText(semester, "Semester"));
+    }
+
+    private String requireText(String value, String field) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(field + " must not be blank");
+        }
+        return value;
+    }
 }
