@@ -22,6 +22,7 @@ public class Exercise2Runner implements CommandLineRunner {
     @Override
     public void run(String... args) {
         runTodo6();
+        runTodo7();
     }
 
     private void runTodo6() {
@@ -35,6 +36,14 @@ public class Exercise2Runner implements CommandLineRunner {
     private void printCourseById(Long id) {
         System.out.printf("Course id=%d: %s%n", id,
                 courseService.findById(id).map(Object::toString).orElse("Not found"));
+    }
+
+    private void runTodo7() {
+        heading(7, "Navigate the many-to-many relationship");
+        System.out.println("Courses of SE001:");
+        enrollmentService.getCoursesOfStudent("SE001").forEach(System.out::println);
+        System.out.println("Students of AIL303:");
+        enrollmentService.getStudentsOfCourse("AIL303").forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {
