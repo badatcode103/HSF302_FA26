@@ -30,12 +30,41 @@ public class EnrollmentServiceImpl implements EnrollmentService {
 
     @Override
     public List<Student> getStudentsOfCourse(String courseCode) {
-        Course course = courseRepository.findAll().stream()
-                .filter(candidate -> candidate.getCode().equals(courseCode))
-                .findFirst()
+        Course course = courseRepository.findByCode(requireText(courseCode, "Course code"))
                 .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseCode));
         return course.getStudents().stream()
                 .sorted(Comparator.comparing(Student::getFullName))
                 .toList();
+    }
+
+    @Override
+    public List<Student> findStudentsInCourse(String courseCode) {
+        requireCourse(courseCode);
+        return studentRepository.findByCourses_CodeOrderByFullNameAsc(courseCode);
+    }
+
+    @Override
+    public long countStudentsInCourse(String courseCode) {
+        requireCourse(courseCode);
+        return studentRepository.countByCourses_Code(courseCode);
+    }
+
+    @Override
+    public List<Student> findActiveStudentsInCourse(String courseCode) {
+        requireCourse(courseCode);
+        return studentRepository.findByCourses_CodeAndActiveTrueOrderByFullNameAsc(courseCode);
+    }
+
+    private Course requireCourse(String courseCode) {
+        String code = requireText(courseCode, "Course code");
+        return courseRepository.findByCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found: " + code));
+    }
+
+    private String requireText(String value, String field) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(field + " must not be blank");
+        }
+        return value;
     }
 }

@@ -24,6 +24,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo6();
         runTodo7();
         runTodo8();
+        runTodo9();
     }
 
     private void runTodo6() {
@@ -56,6 +57,16 @@ public class Exercise2Runner implements CommandLineRunner {
         System.out.println("Courses in SU26:");
         courseService.findBySemester("SU26").forEach(System.out::println);
         System.out.println("Courses in FA26: " + courseService.countBySemester("FA26"));
+    }
+
+    private void runTodo9() {
+        heading(9, "Find students by enrolled course code");
+        System.out.println("Students in PRJ301:");
+        enrollmentService.findStudentsInCourse("PRJ301").forEach(System.out::println);
+        System.out.println("Students in HSF302: "
+                + enrollmentService.countStudentsInCourse("HSF302"));
+        System.out.println("Active students in PRJ301:");
+        enrollmentService.findActiveStudentsInCourse("PRJ301").forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {
