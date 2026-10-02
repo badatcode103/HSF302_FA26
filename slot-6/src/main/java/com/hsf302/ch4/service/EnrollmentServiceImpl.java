@@ -145,6 +145,18 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         student.enroll(course);
     }
 
+    @Override
+    @Transactional
+    public void unenroll(String studentCode, String courseCode) {
+        Student student = requireStudent(studentCode);
+        Course course = requireCourse(courseCode);
+        if (!student.getCourses().contains(course)) {
+            throw new IllegalStateException(
+                    "Student is not enrolled in " + course.getCode());
+        }
+        student.unenroll(course);
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)

@@ -41,6 +41,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo18();
         runTodo19();
         runTodo20();
+        runTodo21();
     }
 
     private void runTodo6() {
@@ -209,6 +210,20 @@ public class Exercise2Runner implements CommandLineRunner {
         enrollmentService.getCoursesOfStudent("IA003").forEach(System.out::println);
         System.out.println("Students in MKT101: "
                 + enrollmentService.countStudentsInCourse("MKT101"));
+    }
+
+    private void runTodo21() {
+        heading(21, "Unenroll a student from a course");
+        attempt("AI002 leaves AIL303", () -> enrollmentService.unenroll("AI002", "AIL303"));
+        attempt("IA003 leaves PRJ301", () -> enrollmentService.unenroll("IA003", "PRJ301"));
+        attempt("SE004 -> AIL303", () -> enrollmentService.enroll("SE004", "AIL303"));
+        System.out.println("Students of AIL303:");
+        enrollmentService.getStudentsOfCourse("AIL303").forEach(System.out::println);
+        System.out.println("Courses of AI002:");
+        enrollmentService.getCoursesOfStudent("AI002").forEach(System.out::println);
+        System.out.println("AI002 still exists: "
+                + studentService.findByStudentCode("AI002").isPresent());
+        System.out.println("Total courses: " + courseService.count());
     }
 
     private void attempt(String action, Runnable operation) {
