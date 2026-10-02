@@ -1,5 +1,14 @@
 package com.hsf302.ch4.service;
 
-public interface CourseService {
+import com.hsf302.ch4.pojo.Course;
 
+import java.util.List;
+import java.util.Optional;
+
+public interface CourseService {
+    long count();
+
+    List<Course> findAllOrderByCode();
+
+    Optional<Course> findById(Long id);
 }

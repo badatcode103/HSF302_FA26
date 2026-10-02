@@ -21,6 +21,23 @@ public class Exercise2Runner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        // TODO 6 onward is implemented here in subsequent exercises.
+        runTodo6();
+    }
+
+    private void runTodo6() {
+        heading(6, "Count, sort and find courses by id");
+        System.out.println("Total courses: " + courseService.count());
+        courseService.findAllOrderByCode().forEach(System.out::println);
+        printCourseById(2L);
+        printCourseById(99L);
+    }
+
+    private void printCourseById(Long id) {
+        System.out.printf("Course id=%d: %s%n", id,
+                courseService.findById(id).map(Object::toString).orElse("Not found"));
+    }
+
+    private void heading(int todo, String title) {
+        System.out.printf("%n===== TODO %d: %s =====%n", todo, title);
     }
 }
