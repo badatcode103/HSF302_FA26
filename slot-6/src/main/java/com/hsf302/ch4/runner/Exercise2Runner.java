@@ -31,6 +31,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo11();
         runTodo12();
         runTodo13();
+        runTodo14();
     }
 
     private void runTodo6() {
@@ -115,6 +116,14 @@ public class Exercise2Runner implements CommandLineRunner {
                     stat.code(), stat.name(), stat.enrolled(), stat.capacity(),
                     stat.remaining(), average);
         });
+    }
+
+    private void runTodo14() {
+        heading(14, "Summarize student credits");
+        enrollmentService.getCreditSummary(7).forEach(summary ->
+                System.out.printf("%s | %s | %d courses | %d credits%n",
+                        summary.studentCode(), summary.fullName(),
+                        summary.courseCount(), summary.totalCredits()));
     }
 
     private void heading(int todo, String title) {

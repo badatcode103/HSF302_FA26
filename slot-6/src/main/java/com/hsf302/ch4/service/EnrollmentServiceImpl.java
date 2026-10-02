@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.dto.StudentCreditDTO;
 import com.hsf302.ch4.pojo.Course;
 import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.repository.CourseRepository;
@@ -77,6 +78,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         }
         Course course = requireCourse(courseCode);
         return studentRepository.findGoodStudentsInCourse(course.getCode(), minGpa);
+    }
+
+    @Override
+    public List<StudentCreditDTO> getCreditSummary(int minCredits) {
+        if (minCredits < 0) {
+            throw new IllegalArgumentException("Minimum credits must not be negative");
+        }
+        return studentRepository.getCreditSummary(minCredits);
     }
 
     private Course requireCourse(String courseCode) {
