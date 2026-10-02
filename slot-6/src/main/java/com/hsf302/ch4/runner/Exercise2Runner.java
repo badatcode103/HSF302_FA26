@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.Locale;
+
 @Component
 @Order(3)
 @Profile("ex2")
@@ -28,6 +30,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo10();
         runTodo11();
         runTodo12();
+        runTodo13();
     }
 
     private void runTodo6() {
@@ -100,6 +103,18 @@ public class Exercise2Runner implements CommandLineRunner {
         heading(12, "Find good students in a course");
         enrollmentService.findGoodStudentsInCourse("HSF302", 3.5)
                 .forEach(System.out::println);
+    }
+
+    private void runTodo13() {
+        heading(13, "Course enrollment statistics");
+        courseService.getStatistics().forEach(stat -> {
+            String average = stat.averageGpa() == null
+                    ? "null"
+                    : String.format(Locale.US, "%.3f", stat.averageGpa());
+            System.out.printf("%s | %s | %d/%d | remaining %d | avg GPA %s%n",
+                    stat.code(), stat.name(), stat.enrolled(), stat.capacity(),
+                    stat.remaining(), average);
+        });
     }
 
     private void heading(int todo, String title) {

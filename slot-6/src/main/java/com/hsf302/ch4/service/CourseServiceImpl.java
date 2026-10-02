@@ -1,5 +1,6 @@
 package com.hsf302.ch4.service;
 
+import com.hsf302.ch4.dto.CourseStatDTO;
 import com.hsf302.ch4.pojo.Course;
 import com.hsf302.ch4.repository.CourseRepository;
 import com.hsf302.ch4.repository.StudentRepository;
@@ -72,6 +73,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> findCoursesWithoutStudents() {
         return courseRepository.findByStudentsIsEmptyOrderByCodeAsc();
+    }
+
+    @Override
+    public List<CourseStatDTO> getStatistics() {
+        return courseRepository.getStatistics();
     }
 
     private String requireText(String value, String field) {
