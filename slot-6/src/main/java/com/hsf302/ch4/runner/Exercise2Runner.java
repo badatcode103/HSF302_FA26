@@ -32,6 +32,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo12();
         runTodo13();
         runTodo14();
+        runTodo15();
     }
 
     private void runTodo6() {
@@ -124,6 +125,14 @@ public class Exercise2Runner implements CommandLineRunner {
                 System.out.printf("%s | %s | %d courses | %d credits%n",
                         summary.studentCode(), summary.fullName(),
                         summary.courseCount(), summary.totalCredits()));
+    }
+
+    private void runTodo15() {
+        heading(15, "Find full courses and busy students");
+        System.out.println("Full courses:");
+        courseService.findFullCourses().forEach(System.out::println);
+        System.out.println("Students enrolled in more than 2 courses:");
+        enrollmentService.findStudentsWithMoreThan(2).forEach(System.out::println);
     }
 
     private void heading(int todo, String title) {

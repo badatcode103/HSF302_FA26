@@ -32,4 +32,11 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
             ORDER BY c.code
             """)
     List<CourseStatDTO> getStatistics();
+
+    @Query("""
+            SELECT c FROM Course c
+            WHERE SIZE(c.students) >= c.capacity
+            ORDER BY c.code
+            """)
+    List<Course> findFullCourses();
 }

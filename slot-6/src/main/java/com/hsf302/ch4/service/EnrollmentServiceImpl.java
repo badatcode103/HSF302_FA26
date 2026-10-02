@@ -88,6 +88,14 @@ public class EnrollmentServiceImpl implements EnrollmentService {
         return studentRepository.getCreditSummary(minCredits);
     }
 
+    @Override
+    public List<Student> findStudentsWithMoreThan(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Number of courses must not be negative");
+        }
+        return studentRepository.findStudentsWithMoreThan(n);
+    }
+
     private Course requireCourse(String courseCode) {
         String code = requireText(courseCode, "Course code");
         return courseRepository.findByCode(code)

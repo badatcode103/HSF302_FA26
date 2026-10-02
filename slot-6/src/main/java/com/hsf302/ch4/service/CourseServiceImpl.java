@@ -80,6 +80,11 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.getStatistics();
     }
 
+    @Override
+    public List<Course> findFullCourses() {
+        return courseRepository.findFullCourses();
+    }
+
     private String requireText(String value, String field) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(field + " must not be blank");
