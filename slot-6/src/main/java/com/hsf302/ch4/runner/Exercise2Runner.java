@@ -39,6 +39,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo16();
         runTodo17();
         runTodo18();
+        runTodo19();
     }
 
     private void runTodo6() {
@@ -178,6 +179,22 @@ public class Exercise2Runner implements CommandLineRunner {
                         enrollment.getStudentCode(), enrollment.getFullName(),
                         enrollment.getCourseCode(), enrollment.getCourseName(),
                         enrollment.getCredits()));
+    }
+
+    private void runTodo19() {
+        heading(19, "Paginate students of a course");
+        int pageIndex = 0;
+        var page = enrollmentService.findStudentsInCoursePage("HSF302", pageIndex, 2);
+        System.out.printf("totalElements=%d, totalPages=%d%n",
+                page.getTotalElements(), page.getTotalPages());
+        do {
+            System.out.println("Page " + pageIndex + ":");
+            page.getContent().forEach(System.out::println);
+            pageIndex++;
+            if (pageIndex < page.getTotalPages()) {
+                page = enrollmentService.findStudentsInCoursePage("HSF302", pageIndex, 2);
+            }
+        } while (pageIndex < page.getTotalPages());
     }
 
     private void heading(int todo, String title) {

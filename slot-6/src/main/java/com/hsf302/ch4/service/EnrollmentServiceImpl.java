@@ -7,6 +7,8 @@ import com.hsf302.ch4.pojo.Student;
 import com.hsf302.ch4.repository.CourseRepository;
 import com.hsf302.ch4.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -111,6 +113,19 @@ public class EnrollmentServiceImpl implements EnrollmentService {
             throw new IllegalArgumentException("Department not found or has no students: " + code);
         }
         return studentRepository.getEnrollmentsOfDepartment(code);
+    }
+
+    @Override
+    public Page<Student> findStudentsInCoursePage(String courseCode, int pageIndex, int size) {
+        if (pageIndex < 0) {
+            throw new IllegalArgumentException("Page index must not be negative");
+        }
+        if (size <= 0) {
+            throw new IllegalArgumentException("Page size must be greater than zero");
+        }
+        Course course = requireCourse(courseCode);
+        return studentRepository.findStudentsInCoursePage(
+                course.getCode(), PageRequest.of(pageIndex, size));
     }
 
     private Course requireCourse(String courseCode) {
