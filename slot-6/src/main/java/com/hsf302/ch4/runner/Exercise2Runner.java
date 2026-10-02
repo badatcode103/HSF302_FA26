@@ -43,6 +43,7 @@ public class Exercise2Runner implements CommandLineRunner {
         runTodo20();
         runTodo21();
         runTodo22();
+        runTodo23();
     }
 
     private void runTodo6() {
@@ -235,6 +236,22 @@ public class Exercise2Runner implements CommandLineRunner {
         attempt("SE001 PRJ301 -> AIL303",
                 () -> enrollmentService.switchCourse("SE001", "PRJ301", "AIL303"));
         printCoursesOfStudent("SE001");
+    }
+
+    private void runTodo23() {
+        heading(23, "Delete a course safely");
+        try {
+            courseService.deleteCourseDirectly("IAA202");
+            System.out.println("Direct deletion unexpectedly succeeded");
+        } catch (RuntimeException exception) {
+            System.out.println("Expected direct deletion failure: "
+                    + exception.getClass().getSimpleName() + " - " + exception.getMessage());
+        }
+        int removed = courseService.deleteCourse("IAA202");
+        System.out.println("Students detached from IAA202: " + removed);
+        System.out.println("Remaining courses:");
+        courseService.findAllOrderByCode().forEach(System.out::println);
+        printCoursesOfStudent("IA002");
     }
 
     private void printCoursesOfStudent(String studentCode) {

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.HashSet;
 
 @Service
 @Transactional(readOnly = true)
@@ -99,6 +100,28 @@ public class CourseServiceImpl implements CourseService {
             throw new IllegalArgumentException("Number of courses must be greater than zero");
         }
         return courseRepository.findTopEnrolled(n);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCourseDirectly(String code) {
+        Course course = courseRepository.findByCode(requireText(code, "Course code"))
+                .orElseThrow(() -> new IllegalArgumentException("Course not found: " + code));
+        courseRepository.delete(course);
+        courseRepository.flush();
+    }
+
+    @Override
+    @Transactional
+    public int deleteCourse(String code) {
+        String courseCode = requireText(code, "Course code");
+        Course course = courseRepository.findWithStudentsByCode(courseCode)
+                .orElseThrow(() -> new IllegalArgumentException("Course not found: " + courseCode));
+        var enrolledStudents = new HashSet<>(course.getStudents());
+        enrolledStudents.forEach(student -> student.unenroll(course));
+        studentRepository.flush();
+        courseRepository.delete(course);
+        return enrolledStudents.size();
     }
 
     private String requireText(String value, String field) {
