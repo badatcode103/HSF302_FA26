@@ -33,12 +33,15 @@ public class StudentServiceIpml implements StudentService{
     }
 
     @Override
+    @Transactional
     public boolean update(Long id, Student data) {
         return studentRepository.findById(id)
                 .map(student -> {
                     student.setName(data.getName());
                     student.setMajor(data.getMajor());
                     student.setEmail(data.getEmail());
+                    student.setAge(data.getAge());
+                    student.setGpa(data.getGpa());
                     return true;
                 })
                 .orElse(false);
