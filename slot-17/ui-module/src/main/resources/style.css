@@ -1,1 +1,37 @@
+.root        { -fx-font-family: "Segoe UI"; -fx-font-size: 13; }
+  .header      { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #2c3e50; }
+  .subheader   { -fx-font-size: 16; -fx-font-weight: bold; }
+  .btn-primary { -fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; }
+  .btn-warning { -fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; }
+  .btn-danger  { -fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; }
+  .button:disabled { -fx-opacity: 0.45; }
+  .table-view  { -fx-border-color: #bdc3c7; }
+  .msg         { -fx-padding: 5; -fx-font-style: italic; }
+  ```
+  Commit: `style(ui): add stylesheet and polish UX`
+- **7.2** `README.md` ở thư mục gốc: môi trường (JDK 21, Maven, SQL Server), tạo DB, sửa `application.properties`, lệnh build/test/run, sơ đồ kiến trúc, 4 ảnh trong `docs/screenshots/` (`01-list.png`, `02-add.png`, `03-validation.png`, `04-delete-confirm.png`).
+  Commit: `docs: add README with setup and run guide`
 
+### ✅ Checklist TODO #7
+- [ ] CSS chỉ dùng thuộc tính `-fx-...`
+- [ ] README đủ mục, có 4 ảnh chụp
+- [ ] 2 commit riêng (#8, #9) đúng message
+
+---
+
+## Bài 8 — Nâng cao (Bonus)
+
+> Mỗi bài làm trên nhánh riêng rồi merge:
+> ```bash
+> git checkout -b feature/pagination
+> # ... code + commit ...
+> git checkout main
+> git merge --no-ff feature/pagination -m "merge: feature/pagination"
+> ```
+
+### 8.1 Phân trang bằng `Pageable` (+3đ)
+**TODO:** thêm vào `StudentService` method `Page<Student> findPage(int page, int size)`; Impl dùng `studentRepository.findAll(PageRequest.of(page, size, Sort.by("id")))` (method **có sẵn** của `JpaRepository`). UI dùng control `Pagination` 10 dòng/trang. Viết thêm 1 test `@DataJpaTest`.
+**Commit:** `feat: paginate student table with Pageable`
+
+### 8.2 Async loading với `Task` (+3đ)
+**TODO:** `loadData()` / `handleSearch()` chạy trên background thread; hiển thị `Loading...`, disable nút Search/Refresh trong lúc tải.
