@@ -29,5 +29,6 @@
         <profile><id>t1</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.t1.StudentApp</app.mainClass></properties></profile>
         <profile><id>t2</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.t2.ShapeEditorApp</app.mainClass></properties></profile>
         <profile><id>t3</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.t3.ConcurrencyApp</app.mainClass></properties></profile>
+        <profile><id>t4</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.t4.ScoreDashboardApp</app.mainClass></properties></profile>
     </profiles>
 </project>

@@ -14,5 +14,6 @@ module com.fu.ch08 {
     exports com.fu.ch08.t1;
     exports com.fu.ch08.t2;
     exports com.fu.ch08.t3;
+    exports com.fu.ch08.t4;
 }
 
