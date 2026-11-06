@@ -13,5 +13,6 @@ module com.fu.ch08 {
     opens com.fu.ch08.t1 to javafx.fxml, javafx.base;
     exports com.fu.ch08.t1;
     exports com.fu.ch08.t2;
+    exports com.fu.ch08.t3;
 }
 
