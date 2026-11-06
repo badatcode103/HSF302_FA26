@@ -33,7 +33,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.example.ui.Launcher</mainClass>
-                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
