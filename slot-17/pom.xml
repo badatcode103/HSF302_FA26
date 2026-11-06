@@ -25,5 +25,6 @@
         <profile><id>b3</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.b3.RegisterApp</app.mainClass></properties></profile>
         <profile><id>b4</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.b4.LoginApp</app.mainClass></properties></profile>
         <profile><id>b5</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.b5.LayoutApp</app.mainClass></properties></profile>
+        <profile><id>b6</id><properties><app.mainClass>com.fu.ch08/com.fu.ch08.b6.SurveyApp</app.mainClass></properties></profile>
     </profiles>
 </project>

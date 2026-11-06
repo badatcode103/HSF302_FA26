@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<ScrollPane fitToWidth="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.fu.ch08.b6.SurveyController">
+ <content><VBox spacing="10" style="-fx-padding: 20;">
+ <fx:define><ToggleGroup fx:id="tgGender"/></fx:define>
+ <Label text="KHẢO SÁT MÔN HỌC HSF302" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+ <GridPane hgap="12" vgap="10">
+ <columnConstraints><ColumnConstraints minWidth="150"/><ColumnConstraints hgrow="ALWAYS"/></columnConstraints>
+ <Label text="MSSV *" GridPane.rowIndex="0"/><TextField fx:id="tfStudentId" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+ <Label text="Họ tên *" GridPane.rowIndex="1"/><TextField fx:id="tfFullName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+ <Label text="Ngành *" GridPane.rowIndex="2"/><ChoiceBox fx:id="cbMajor" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+ <Label text="Kỳ học" GridPane.rowIndex="3"/><Spinner fx:id="spSemester" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+ <Label text="Giới tính *" GridPane.rowIndex="4"/><HBox spacing="12" GridPane.columnIndex="1" GridPane.rowIndex="4"><RadioButton text="Nam" toggleGroup="$tgGender"/><RadioButton text="Nữ" toggleGroup="$tgGender"/><RadioButton text="Khác" toggleGroup="$tgGender"/></HBox>
+ <Label text="Ngày khảo sát *" GridPane.rowIndex="5"/><DatePicker fx:id="dpDate" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+ <Label text="Mức hài lòng" GridPane.rowIndex="6"/><VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="6"><Slider fx:id="slSatisfaction"/><Label fx:id="lblSatisfaction"/></VBox>
+ <Label text="Phần thích nhất *" GridPane.rowIndex="7"/><FlowPane hgap="10" vgap="5" GridPane.columnIndex="1" GridPane.rowIndex="7"><CheckBox fx:id="chkSpring" text="Spring"/><CheckBox fx:id="chkJpa" text="JPA"/><CheckBox fx:id="chkFx" text="JavaFX"/><CheckBox fx:id="chkTesting" text="Testing"/></FlowPane>
+ <Label text="Màu yêu thích" GridPane.rowIndex="8"/><ColorPicker fx:id="cpColor" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+ <Label text="Ngôn ngữ" GridPane.rowIndex="9"/><VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="9"><HBox spacing="8"><ComboBox fx:id="cbLanguage" HBox.hgrow="ALWAYS" maxWidth="Infinity"/><Button text="Thêm" onAction="#handleAddLanguage"/></HBox><ListView fx:id="lvLanguages" prefHeight="100"/></VBox>
+ <Label text="Góp ý" GridPane.rowIndex="10"/><VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="10"><TextArea fx:id="taComment" prefRowCount="4" wrapText="true"/><Label fx:id="lblCharCount"/></VBox>
+ </GridPane><ProgressBar fx:id="pbComplete" maxWidth="Infinity"/><HBox spacing="10"><Button text="Gửi" onAction="#handleSubmit"/><Button text="Làm lại" onAction="#handleReset"/><Hyperlink text="Xem đề cương" onAction="#handleSyllabus"/></HBox>
+ </VBox></content></ScrollPane>
+
