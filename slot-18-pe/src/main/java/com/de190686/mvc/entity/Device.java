@@ -25,8 +25,11 @@ public class Device {
     @Column(name = "warranty_months")
     private int warranty_months;
 
-    @Column(name = "insallation_date")
+    @Column(name = "installation_date")
     private LocalDate installation_date;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
@@ -35,13 +38,14 @@ public class Device {
     public Device() {
     }
 
-    public Device(Integer device_id, String device_code, String device_name, int warranty_months, BigDecimal price, LocalDate installation_date, Category category) {
+    public Device(Integer device_id, String device_code, String device_name, int warranty_months, BigDecimal price, LocalDate installation_date, String status, Category category) {
         this.device_id = device_id;
         this.device_code = device_code;
         this.device_name = device_name;
         this.warranty_months = warranty_months;
         this.price = price;
         this.installation_date = installation_date;
+        this.status = status;
         this.category = category;
     }
 
@@ -91,6 +95,14 @@ public class Device {
 
     public void setInstallation_date(LocalDate installation_date) {
         this.installation_date = installation_date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Category getCategory() {
