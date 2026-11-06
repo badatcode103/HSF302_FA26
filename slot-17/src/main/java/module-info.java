@@ -15,5 +15,8 @@ module com.fu.ch08 {
     exports com.fu.ch08.t2;
     exports com.fu.ch08.t3;
     exports com.fu.ch08.t4;
+    requires javafx.web;
+    requires javafx.media;
+    exports com.fu.ch08.t5;
 }
 
