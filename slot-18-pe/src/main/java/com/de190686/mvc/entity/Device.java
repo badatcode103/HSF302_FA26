@@ -10,21 +10,22 @@ import java.time.LocalDate;
 public class Device {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "device_id")
     private Integer device_id;
 
-    @Column
+    @Column(name = "device_code")
     private String device_code;
 
-    @Column
+    @Column(name = "device_name")
     private String device_name;
 
-    @Column
+    @Column(name = "price")
     private BigDecimal price;
 
-    @Column
-    private int warranty_month;
+    @Column(name = "warranty_months")
+    private int warranty_months;
 
-    @Column
+    @Column(name = "insallation_date")
     private LocalDate installation_date;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,11 +35,11 @@ public class Device {
     public Device() {
     }
 
-    public Device(Integer device_id, String device_code, String device_name, int warranty_month, BigDecimal price, LocalDate installation_date, Category category) {
+    public Device(Integer device_id, String device_code, String device_name, int warranty_months, BigDecimal price, LocalDate installation_date, Category category) {
         this.device_id = device_id;
         this.device_code = device_code;
         this.device_name = device_name;
-        this.warranty_month = warranty_month;
+        this.warranty_months = warranty_months;
         this.price = price;
         this.installation_date = installation_date;
         this.category = category;
@@ -76,12 +77,12 @@ public class Device {
         this.price = price;
     }
 
-    public int getWarranty_month() {
-        return warranty_month;
+    public int getWarranty_months() {
+        return warranty_months;
     }
 
-    public void setWarranty_month(int warranty_month) {
-        this.warranty_month = warranty_month;
+    public void setWarranty_months(int warranty_months) {
+        this.warranty_months = warranty_months;
     }
 
     public LocalDate getInstallation_date() {
